@@ -3,6 +3,8 @@
 
 ## Prerequisites
 
+Follow steps A2-A5 of [this StackExchange answer](https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line#answer-865294) to get the latest version of `cmake`
+
 Bluenet uses the `cmake` build system, `git` as versioning system, and `wget` to retrieve other files.
 
     sudo apt install cmake cclive gcc-arm-none-eabi git wget python3 python3-pip
