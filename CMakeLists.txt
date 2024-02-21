@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.10)
 
 option(COMPILE_FOR_HOST                          "Compile for host"                      OFF)
 option(FACTORY_IMAGE                             "Create factory image"                  OFF)
-option(REQUIRE_NRFJPROG                          "Require nrfjprog"                      ON)
+option(REQUIRE_NRFJPROG                          "Require nrfjprog"                      OFF)
 option(REQUIRE_JLINK                             "Require JLink"                         ON)
 option(REQUIRE_PYTHON                            "Require python"                        OFF)
 option(BUILD_OFFLINE                             "Build offline"                         OFF)
@@ -101,9 +101,7 @@ endif()
 
 find_package(gcc_arm_none_eabi)
 if(NOT gcc_arm_none_eabi_FOUND)
-	message(FATAL_ERROR "Installation requires cross-compiler")
-else()
-	message(STATUS "Version of gcc_arm_none_eabi: ${gcc_arm_none_eabi_VERSION_STRING}")
+	message(FATAL_ERROR "Installation requires gcc-arm-none-eabi cross-compiler, install with something like `sudo apt install gcc-arm-none-eabi`")
 endif()
 
 if(FACTORY_IMAGE)
@@ -337,7 +335,7 @@ ExternalProject_Add(${MESH_SDK_TARGET}
 
 list(APPEND CMAKE_BLUENET_ARGS "-DMESH_SDK_DIR:STRING=${MESH_SDK_DIR}")
 
-set(COMPILER_PATH ${WORKSPACE_DIR}/tools/gcc_arm_none_eabi)
+get_filename_component(COMPILER_PATH ${gcc_arm_none_eabi_EXECUTABLE} DIRECTORY)
 list(APPEND CMAKE_BLUENET_ARGS "-DCOMPILER_PATH:STRING=${COMPILER_PATH}")
 
 if(FACTORY_IMAGE)
@@ -397,7 +395,7 @@ set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_
 add_custom_target(micro_eec
 	COMMAND sed -i 's/\\r//g' build_all.sh WORKING_DIRECTORY ${NRF5_DIR}/external/micro-ecc
 	COMMAND chmod u+x build_all.sh WORKING_DIRECTORY ${NRF5_DIR}/external/micro-ecc
-	COMMAND ${CMAKE_COMMAND} -E env "GNU_INSTALL_ROOT=${COMPILER_PATH}/bin/" "VERBOSE=0 MAKEFLAGS=-j1" ./build_all.sh WORKING_DIRECTORY ${NRF5_DIR}/external/micro-ecc
+	COMMAND ${CMAKE_COMMAND} -E env "GNU_INSTALL_ROOT=${COMPILER_PATH}" "VERBOSE=0 MAKEFLAGS=-j1" ./build_all.sh WORKING_DIRECTORY ${NRF5_DIR}/external/micro-ecc
 	COMMENT "Build micro-eec"
 	DEPENDS
 	${NORDIC_SDK_TARGET}

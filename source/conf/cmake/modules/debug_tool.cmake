@@ -44,9 +44,9 @@ if(INSTRUCTION STREQUAL "START_GDB_SERVER")
 	message(STATUS "${output}")
 elseif(INSTRUCTION STREQUAL "START_GDB_CLIENT")
 	message(STATUS "Start GDB client")
-	message(STATUS "${COMPILER_PATH}/bin/arm-none-eabi-gdb --command ${DEFAULT_CONF_GDB_PATH}/gdbinit --eval-command=\"target;remote;localhost:${GDB_PORT}\" --command ${DEFAULT_CONF_GDB_PATH}/gdbstart --exec=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf")
+	message(STATUS "${COMPILER_PATH}/arm-none-eabi-gdb --command ${DEFAULT_CONF_GDB_PATH}/gdbinit --eval-command=\"target;remote;localhost:${GDB_PORT}\" --command ${DEFAULT_CONF_GDB_PATH}/gdbstart --exec=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf")
 	execute_process(
-		COMMAND ${COMPILER_PATH}/bin/arm-none-eabi-gdb --command ${DEFAULT_CONF_GDB_PATH}/gdbinit --eval-command="target;remote;localhost:${GDB_PORT}" --command ${DEFAULT_CONFIG_GDB_PATH}/gdbstart --exec=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf
+		COMMAND ${COMPILER_PATH}/arm-none-eabi-gdb --command ${DEFAULT_CONF_GDB_PATH}/gdbinit --eval-command="target;remote;localhost:${GDB_PORT}" --command ${DEFAULT_CONFIG_GDB_PATH}/gdbstart --exec=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.elf
 		RESULT_VARIABLE status
 		OUTPUT_VARIABLE output
 		ERROR_VARIABLE error

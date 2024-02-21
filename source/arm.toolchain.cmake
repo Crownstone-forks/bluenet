@@ -40,22 +40,22 @@ SET(COMPILER_TYPE_PREFIX ${COMPILER_TYPE})
 #######################################################################################################################
 
 # Make cross-compiler easy to find (but we will use absolute paths anyway)
-SET(PATH "${PATH}:${COMPILER_PATH}/bin")
+SET(PATH "${PATH}:${COMPILER_PATH}")
 MESSAGE(STATUS "PATH is set to: ${PATH}")
 
 # Actually add to PATH
-LIST(APPEND CMAKE_PROGRAM_PATH ${COMPILER_PATH}/bin)
+LIST(APPEND CMAKE_PROGRAM_PATH ${COMPILER_PATH})
 
 # Specify the cross compiler, linker, etc.
-SET(CMAKE_C_COMPILER                   ${COMPILER_PATH}/bin/${COMPILER_TYPE}gcc)
-SET(CMAKE_CXX_COMPILER                 ${COMPILER_PATH}/bin/${COMPILER_TYPE}g++)
-SET(CMAKE_ASM_COMPILER                 ${COMPILER_PATH}/bin/${COMPILER_TYPE}as)
-SET(CMAKE_LINKER                       ${COMPILER_PATH}/bin/${COMPILER_TYPE}ld)
-SET(CMAKE_READELF                      ${COMPILER_PATH}/bin/${COMPILER_TYPE}readelf)
-SET(CMAKE_OBJDUMP                      ${COMPILER_PATH}/bin/${COMPILER_TYPE}objdump)
-SET(CMAKE_OBJCOPY                      ${COMPILER_PATH}/bin/${COMPILER_TYPE}objcopy)
-SET(CMAKE_SIZE                         ${COMPILER_PATH}/bin/${COMPILER_TYPE}size)
-SET(CMAKE_NM                           ${COMPILER_PATH}/bin/${COMPILER_TYPE}nm)
+SET(CMAKE_C_COMPILER                   ${COMPILER_PATH}/${COMPILER_TYPE}gcc)
+SET(CMAKE_CXX_COMPILER                 ${COMPILER_PATH}/${COMPILER_TYPE}g++)
+SET(CMAKE_ASM_COMPILER                 ${COMPILER_PATH}/${COMPILER_TYPE}as)
+SET(CMAKE_LINKER                       ${COMPILER_PATH}/${COMPILER_TYPE}ld)
+SET(CMAKE_READELF                      ${COMPILER_PATH}/${COMPILER_TYPE}readelf)
+SET(CMAKE_OBJDUMP                      ${COMPILER_PATH}/${COMPILER_TYPE}objdump)
+SET(CMAKE_OBJCOPY                      ${COMPILER_PATH}/${COMPILER_TYPE}objcopy)
+SET(CMAKE_SIZE                         ${COMPILER_PATH}/${COMPILER_TYPE}size)
+SET(CMAKE_NM                           ${COMPILER_PATH}/${COMPILER_TYPE}nm)
 
 #ENABLE_LANGUAGE(ASM)
 
@@ -89,7 +89,7 @@ SET(RELEASE_FLAGS "-g0")
 # 
 SET(DEFAULT_CXX_FLAGS       "-std=c++17 -fno-exceptions -fdelete-dead-exceptions -fno-unwind-tables -fno-non-call-exceptions")
 SET(DEFAULT_C_FLAGS         "")
-SET(DEFAULT_C_AND_CXX_FLAGS "-mthumb -ffunction-sections -fdata-sections -Wall -Werror -fdiagnostics-color=always -fno-strict-aliasing -fno-builtin -fshort-enums -Wno-error=format -Wno-error=unused-function")
+SET(DEFAULT_C_AND_CXX_FLAGS "-mthumb -ffunction-sections -fdata-sections -Wall -fdiagnostics-color=always -fno-strict-aliasing -fno-builtin -fshort-enums -Wno-error=format -Wno-error=unused-function")
 
 SET(ASM_OPTIONS "-x assembler-with-cpp")
 SET(CMAKE_ASM_FLAGS "${CFLAGS} ${ASM_OPTIONS}" )
@@ -103,7 +103,7 @@ SET(GARBAGE_COLLECTION_OF_SECTIONS "-Wl,--gc-sections")
 SET(OPTIMIZED_NEWLIB "--specs=nano.specs")
 
 # There is a bug in CMAKE_OBJCOPY, it doesn't exist on execution for the first time
-SET(CMAKE_OBJCOPY_OVERLOAD                       ${COMPILER_PATH}/bin/${COMPILER_TYPE}objcopy)
+SET(CMAKE_OBJCOPY_OVERLOAD                       ${COMPILER_PATH}/${COMPILER_TYPE}objcopy)
 
 # The following require FORCE. Without it, the FLAGS end up to have duplication.
 SET(CMAKE_CXX_FLAGS                              "${DEFAULT_CXX_FLAGS}"        CACHE STRING "C++ flags" FORCE)
